@@ -20,6 +20,11 @@
   2. Set up environmental variable =EMSCRIPTEN= to the Emscripten installation directory. For example by adding =export EMSCRIPTEN=some path/emsdk/emscripten/1.37.36= to your =.profile=
 
   3. Copy this repository to =${EMSCRIPTEN}/system=
+     
+     This copy can be done by this command:
+     #+BEGIN_SRC bash
+     pushd ${EMSCRIPTEN}/system; git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master; popd;
+     #+END_SRC
 
   4. Initialize =cget= by calling =cget init --prefix ${EMSCRIPTEN}/system --toolchains ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake=
 
