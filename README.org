@@ -28,12 +28,12 @@
 
   4. Initialize =cget=.
      
-     For WebAssembly
+     For WebAssembly - probably faster, more experimental no pthread support
      #+BEGIN_SRC bash
        cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake
      #+END_SRC
 
-     For Ams.js
+     For Ams.js - more stable and "supports" pthreads(right now only under Firefox Nightly)
      #+BEGIN_SRC bash
        cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten.cmake
      #+END_SRC
