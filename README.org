@@ -26,8 +26,17 @@
      pushd ${EMSCRIPTEN}/system; git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master; popd;
      #+END_SRC
 
-  4. Initialize =cget= by calling =cget init --prefix ${EMSCRIPTEN}/system --toolchains ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake=
+  4. Initialize =cget=.
+     
+     For WebAssembly
+     #+BEGIN_SRC bash
+       cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake
+     #+END_SRC
 
+     For Ams.js
+     #+BEGIN_SRC bash
+       cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten.cmake
+     #+END_SRC
   
   Now you should be able to start installing packages like: =cget --prefix ${EMSCRIPTEN}/system install magnum=.
 
