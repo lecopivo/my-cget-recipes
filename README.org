@@ -1,7 +1,7 @@
 * This repository helps to set up my build enviroment
   
   The whole setup is based on [[https://github.com/pfultz2/cget][cget]]. You can install cget with =pip3 install cget=.
-  
+
 * Normal build enviroment
 
   Just copy this repository to =~/local= and set up environment variables in =.profile= as
@@ -15,4 +15,17 @@
 
 * Emscripten build enviroment
 
-** TODO Set up build environment for wasm compilation using emscripten. 
+  1. You should start by installing [[https://github.com/kripken/emscripten][Emscripten]] by following the install instructions therein. 
+
+  2. Set up environmental variable =EMSCRIPTEN= to the Emscripten installation directory. For example by adding =export EMSCRIPTEN=some path/emsdk/emscripten/1.37.36= to your =.profile=
+
+  3. Copy this repository to =${EMSCRIPTEN}/system=
+
+  4. Initialize =cget= by calling =cget init --prefix ${EMSCRIPTEN}/system --toolchains ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake=
+
+  
+  Now you should be able to start installing packages like: =cget --prefix ${EMSCRIPTEN}/system install magnum=.
+
+  Or you should be able to build any cmake project by =cmake .. -DCMAKE_TOOLCHAIN_FILE=${EMSCRIPTEN}/system/cget/cget.cmake=
+
+
