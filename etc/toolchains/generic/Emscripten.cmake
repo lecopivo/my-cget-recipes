@@ -47,4 +47,4 @@ cmake_minimum_required(VERSION 3.7)
 set(CMAKE_CXX_FLAGS_INIT "-s USE_PTHREADS=1")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-s USE_PTHREADS=1")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-DNDEBUG -O3") #  "--closure 1" causes problems together with "-s USE_PTHREADS=1"
-set(CMAKE_EXE_LINKER_FLAGS_RELEASE_INIT "-O3 --closure 1 --llvm-lto 1")
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE_INIT "-O3 --llvm-lto 1")
