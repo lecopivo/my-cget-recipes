@@ -1,0 +1,18 @@
+* This repository helps to set up my build enviroment
+  
+  The whole setup is based on [[https://github.com/pfultz2/cget][cget]]. You can install cget with =pip3 install cget=.
+  
+* Normal build enviroment
+
+  Just copy this repository to =~/local= and set up environment variables in =.profile= as
+  #+BEGIN_SRC bash
+    export PATH=${HOME}/local/bin:$PATH
+    export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
+
+    export CGET_PREFIX=${HOME}/local
+  #+END_SRC
+  Now you can easily install packages, e.g. to install the latest version of [[https://github.com/mosra/magnum][Magnum]] you just run =$ cget install magnum=.
+
+* Emscripten build enviroment
+
+** TODO Set up build environment for wasm compilation using emscripten. 
