@@ -19,27 +19,68 @@
 
   2. Set up environmental variable =EMSCRIPTEN= to the Emscripten installation directory. For example by adding =export EMSCRIPTEN=some path/emsdk/emscripten/1.37.36= to your =.profile=
 
-  3. Copy this repository to =${EMSCRIPTEN}/system=
-     
-     This copy can be done by this command:
-     #+BEGIN_SRC bash
-     pushd ${EMSCRIPTEN}/system; git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master; popd;
-     #+END_SRC
+  3. Now you have two options, either to a set up for Wasm or Asm.js
 
-  4. Initialize =cget=.
-     
-     For WebAssembly - probably faster, more experimental no pthread support
-     #+BEGIN_SRC bash
-       cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten-wasm.cmake
-     #+END_SRC
+  3a. WebAssembly 
 
-     For Ams.js - more stable and "supports" pthreads(right now only under Firefox Nightly)
-     #+BEGIN_SRC bash
-       cget init --prefix ${EMSCRIPTEN}/system --toolchain ${EMSCRIPTEN}/system/etc/toolchains/generic/Emscripten.cmake
-     #+END_SRC
+  Create directory for the new build environment:
+  #+BEGIN_SRC bash
+    mkdir ~/wasm-local && cd ~/wasm-local
+  #+END_SRC
+
+  Copy the repository to this directory
+  #+BEGIN_SRC bash
+    git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
+  #+END_SRC
+
+  Initialize =cget=
+  #+BEGIN_SRC bash
+    cget init --prefix ${EMSCRIPTEN}/system --toolchain ./etc/toolchains/generic/Emscripten-wasm.cmake
+  #+END_SRC
+
+
+  3b. Asm.js: Initialize =cget=.
+
+  Create directory for the new build environment:
+  #+BEGIN_SRC bash
+    mkdir ~/asm.js-local && cd ~/asm.js-local
+  #+END_SRC
+
+  Copy the repository to this directory
+  #+BEGIN_SRC bash
+    git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
+  #+END_SRC
+
+  Initialize =cget=
+  #+BEGIN_SRC bash
+    cget init --prefix ${EMSCRIPTEN}/system --toolchain ./etc/toolchains/generic/Emscripten.cmake
+  #+END_SRC
+
+* Package Installation
+
+  NOTE: All the following examples are for environment =~/wasm-local/=, change
+  the directory to the appropriate directory.
   
-  Now you should be able to start installing packages like: =cget --prefix ${EMSCRIPTEN}/system install magnum=.
+  To install package:
+  #+BEGIN_SRC bash
+     cget --prefix ~/wasm-local install magnum
+  #+END_SRC
 
-  Or you should be able to build any cmake project by =cmake .. -DCMAKE_TOOLCHAIN_FILE=${EMSCRIPTEN}/system/cget/cget.cmake=
+* Building project with in an environment
+
+  NOTE: All the following examples are for environment =~/wasm-local/=, change
+  the directory to the appropriate directory.
+
+  To run cmake for specific build environment just supply appropriate
+  toolchain file
+  #+BEGIN_SRC bash
+     cmake .. -DCMAKE_TOOLCHAIN_FILE=~/wasm-local/cget/cget.cmake
+  #+END_SRC
+
+  Or in the directory where =CMakeLists.txt= exists run 
+  #+BEGIN_SRC bash
+     ~/wasm-local/bin/configure-build 
+  #+END_SRC
+  
 
 
