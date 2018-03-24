@@ -46,7 +46,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 # combination with wasm. The *_INIT variables are available since CMake 3.7, so
 # it won't work in earlier versions. Sorry.
 cmake_minimum_required(VERSION 3.7)
-set(CMAKE_CXX_FLAGS_INIT "-s WASM=1")
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-s WASM=1")
+set(CMAKE_CXX_FLAGS_INIT "-s WASM=1 -s USE_PTHREADS=1")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "-s WASM=1 -s USE_PTHREADS=1")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-DNDEBUG -O3")
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE_INIT "-O3 --llvm-lto 1")
