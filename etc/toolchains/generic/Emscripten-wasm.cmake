@@ -14,19 +14,19 @@ set(CMAKE_SYSTEM_NAME Emscripten)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/../modules)
 
 if(NOT EMSCRIPTEN_PREFIX)
-    if(DEFINED ENV{EMSCRIPTEN})
-        set(EMSCRIPTEN_PREFIX $ENV{EMSCRIPTEN})
-    else()
-        message(FATAL_ERROR "Environmental variable EMSCRIPTEN nor cmake variable EMSCRIPTEN_PREFIX are defined! Please set at least one of those to Emscripten installation directory.")
-    endif()
+  if(DEFINED ENV{EMSCRIPTEN})
+    set(EMSCRIPTEN_PREFIX $ENV{EMSCRIPTEN})
+  else()
+    message(FATAL_ERROR "Environmental variable EMSCRIPTEN nor cmake variable EMSCRIPTEN_PREFIX are defined! Please set at least one of those to Emscripten installation directory.")
+  endif()
 endif()
 
 set(EMSCRIPTEN_TOOLCHAIN_PATH "${EMSCRIPTEN_PREFIX}/system")
 
 if(CMAKE_HOST_WIN32)
-    set(EMCC_SUFFIX ".bat")
+  set(EMCC_SUFFIX ".bat")
 else()
-    set(EMCC_SUFFIX "")
+  set(EMCC_SUFFIX "")
 endif()
 set(CMAKE_C_COMPILER "${EMSCRIPTEN_PREFIX}/emcc${EMCC_SUFFIX}")
 set(CMAKE_CXX_COMPILER "${EMSCRIPTEN_PREFIX}/em++${EMCC_SUFFIX}")
@@ -34,8 +34,8 @@ set(CMAKE_AR "${EMSCRIPTEN_PREFIX}/emar${EMCC_SUFFIX}" CACHE FILEPATH "Emscripte
 set(CMAKE_RANLIB "${EMSCRIPTEN_PREFIX}/emranlib${EMCC_SUFFIX}" CACHE FILEPATH "Emscripten ranlib")
 
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_FIND_ROOT_PATH}
-    "${EMSCRIPTEN_TOOLCHAIN_PATH}"
-    "${EMSCRIPTEN_PREFIX}")
+  "${EMSCRIPTEN_TOOLCHAIN_PATH}"
+  "${EMSCRIPTEN_PREFIX}")
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
