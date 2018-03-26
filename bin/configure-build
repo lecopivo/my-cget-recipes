@@ -92,8 +92,8 @@ cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
 popd; popd;
 
 # set up emacs crap
-if [ ! -f ./dir-locals.el ]; then
+if [ ! -f `pwd`/dir-locals.el ]; then
     echo "Creating new dir-locals.el!"
-    echo "((c++-mode (cmake-ide-build-dir . \"./${BUILD_DIR}/${BUILD_TYPE}\")))" > .dir-locals.el
+    echo "((c++-mode (cmake-ide-build-dir . \"`pwd`/${BUILD_DIR}/${BUILD_TYPE}\")))" > .dir-locals.el
 fi
 
