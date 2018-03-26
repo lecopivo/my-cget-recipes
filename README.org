@@ -2,59 +2,43 @@
   
   The whole setup is based on [[https://github.com/pfultz2/cget][cget]]. You can install cget with =pip3 install cget=.
 
-* Normal build enviroment
+* Build environment setup
 
-  Just copy this repository to =~/local= and set up environment variables in =.profile= as
+  First we have to pick a directory, I usually choose =~/local=.
+
   #+BEGIN_SRC bash
+  mkdir -p ~/local; cd ~/local
+  git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
+  #+END_SRC
+
+  Now you can easily install packages, e.g. to install the latest version of [[https://github.com/mosra/magnum][Magnum]] you just run =$cget --prefix ~/local install magnum=.
+  
+** Optional: Set up environment variables
+   You probably want to set up environmental variables such that install binaries and libraries can be found.
+
+   Add this to your =~/.profile= (you probably want to relogin to take an effect)
+   #+BEGIN_SRC bash
     export PATH=${HOME}/local/bin:$PATH
     export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
 
     export CGET_PREFIX=${HOME}/local
-  #+END_SRC
-  Now you can easily install packages, e.g. to install the latest version of [[https://github.com/mosra/magnum][Magnum]] you just run =$ cget install magnum=.
+   #+END_SRC
 
-* Emscripten build enviroment
+   Now you can install library just by calling =cget install magnum=
 
-  1. You should start by installing [[https://github.com/kripken/emscripten][Emscripten]] by following the install instructions therein. 
+** Emscripten build environment
+   
+   You need [[https://github.com/kripken/emscripten][Emscripten]] installed and environment variable =EMSCRIPTEN= has to be set to the directory where =em++= is e.g. =export EMSCIRPTEN=some path/emsdk/emscripten/1.37.36/=.
 
-  2. Set up environmental variable =EMSCRIPTEN= to the Emscripten installation directory. For example by adding =export EMSCRIPTEN=some path/emsdk/emscripten/1.37.36= to your =.profile=
+   Now we pick a directory where to set up our environment, I usually choose =~/wasm-local/=. Then you run
 
-  3. Now you have two options, either to a set up for Wasm or Asm.js
+   #+BEGIN_SRC bash
+     mkdir -p ~/wasm-local; cd ~/wasm-local
+     git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
+     cget init --prefix . --toolchain ./etc/toolchains/generic/Emscripten-wasm.cmake
+   #+END_SRC
 
-  3a. WebAssembly 
-
-  Create directory for the new build environment:
-  #+BEGIN_SRC bash
-    mkdir ~/wasm-local && cd ~/wasm-local
-  #+END_SRC
-
-  Copy the repository to this directory
-  #+BEGIN_SRC bash
-    git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
-  #+END_SRC
-
-  Initialize =cget=
-  #+BEGIN_SRC bash
-    cget init --prefix . --toolchain ./etc/toolchains/generic/Emscripten-wasm.cmake
-  #+END_SRC
-
-
-  3b. Asm.js: Initialize =cget=.
-
-  Create directory for the new build environment:
-  #+BEGIN_SRC bash
-    mkdir ~/asm.js-local && cd ~/asm.js-local
-  #+END_SRC
-
-  Copy the repository to this directory
-  #+BEGIN_SRC bash
-    git init; git remote add origin git@github.com:lecopivo/my-cget-recipes.git; git pull origin master;
-  #+END_SRC
-
-  Initialize =cget=
-  #+BEGIN_SRC bash
-    cget init --prefix . --toolchain ./etc/toolchains/generic/Emscripten.cmake
-  #+END_SRC
+     Now you can easily install packages, e.g. to install the latest version of [[https://github.com/mosra/magnum][Magnum]] you just run =$cget --prefix ~/wasm-local install magnum=.
 
 * Package Installation
 
