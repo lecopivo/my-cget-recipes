@@ -6,8 +6,7 @@ BUILD_TYPE=debug
 BUILD_CGET_PREFIX="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 SHOW_HELP=false
 
-#!/bin/bash
-POSITIONAL=()
+EXTRA=()
 while [[ $# -gt 0 ]]
 do
     key="$1"
@@ -33,12 +32,12 @@ do
 	    shift # past argument
 	    ;;
 	*)    # unknown option
-	    POSITIONAL+=("$1") # save it in an array for later
+	    EXTRA+=("$1") # save it in an array for later
 	    shift # past argument
 	    ;;
     esac
 done
-set -- "${POSITIONAL[@]}" # restore positional parameters
+set -- "${EXTRA[@]}" # restore extra parameters
 
 if $SHOW_HELP; then
     echo "Usage: `basename $0` [options] [<other-cmake-args>...]"
@@ -75,7 +74,7 @@ if $SHOW_HELP; then
     echo "   build-dir  = $BUILD_DIR"
     echo "   build-type = $BUILD_TYPE"
     echo "   prefix     = $BUILD_CGET_PREFIX"
-    echo "   cmake-args = ${POSITIONAL[@]}"
+    echo "   cmake-args = ${EXTRA[@]}"
     
     exit 0
 fi
@@ -87,6 +86,7 @@ rm -f ${BUILD_TYPE}/ -R && mkdir -p ${BUILD_TYPE} && pushd ${BUILD_TYPE}
 cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
           -DCMAKE_TOOLCHAIN_FILE=${BUILD_CGET_PREFIX}/cget/cget.cmake \
+	  ${EXTRA} \
           ../../
 
 popd; popd;
