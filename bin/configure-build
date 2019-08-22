@@ -32,7 +32,7 @@ do
 	    shift # past argument
 	    ;;
 	*)    # unknown option
-	    EXTRA+=("$1") # save it in an array for later
+	    EXTRA="${EXTRA} $1" # save it in an array for later
 	    shift # past argument
 	    ;;
     esac
@@ -85,10 +85,9 @@ rm -f ${BUILD_TYPE}/ -R && mkdir -p ${BUILD_TYPE} && pushd ${BUILD_TYPE}
 
 cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
-          -DCMAKE_TOOLCHAIN_FILE=${BUILD_CGET_PREFIX}/cget/cget.cmake \
 	  ${EXTRA} \
           ../../
-
+#          -DCMAKE_TOOLCHAIN_FILE=${BUILD_CGET_PREFIX}/cget/cget.cmake \
 popd; popd;
 
 # set up emacs crap
